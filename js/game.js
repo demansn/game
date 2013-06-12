@@ -68,11 +68,15 @@ game.setPreviousState = function() {
 };
 
 game.loadLevel = function() {
-	if (this.currentLevel < this.data.levels.length) {
-		this.level.init(game.data.levels[this.currentLevel]);
-		this.setState("game");
-	} else {
-		this.setState("mainMenu");
+	try {
+		if (this.currentLevel < this.data.levels.length) {
+			this.level.init(game.data.levels[this.currentLevel]);
+			this.setState("game");
+		} else {
+			this.setState("mainMenu");
+		}
+	} catch (e) {
+		alert("error loadLevel: " + JSON.stringify(e));
 	}
 };
 
