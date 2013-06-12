@@ -49,6 +49,9 @@ game.level.init = function(data) {
 
 	game.playback.addActiveObject(new game.Caretaker());
 
+	game.drawInput = new game.DrawInput();
+	game.playback.addActiveObject(game.drawInput);
+
 	this.currentLevelData = data;
 };
 

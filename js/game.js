@@ -68,7 +68,7 @@ game.setPreviousState = function() {
 };
 
 game.loadLevel = function() {
-	if (this.currentLevel < this.levels.length) {
+	if (this.currentLevel < this.data.levels.length) {
 		this.level.init(game.data.levels[this.currentLevel]);
 		this.setState("game");
 	} else {

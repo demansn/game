@@ -112,6 +112,41 @@ game.Canvas.prototype.drawSprite = function(owner) {
 
 };
 
+game.Canvas.prototype.fillCircle = function(x, y, r, color) {
+	this.ctxt.beginPath();
+	this.ctxt.arc(x, y, r, 0, 2 * Math.PI, false);
+	this.ctxt.fillStyle = color;
+	this.ctxt.fill();
+	this.ctxt.lineWidth = 1;
+	this.ctxt.strokeStyle = color;
+	this.ctxt.stroke();
+};
+game.Canvas.prototype.fillPoligon = function(points, color) {
+
+	this.ctxt.lineWidth = 1;
+	this.ctxt.strokeStyle = color;
+	this.ctxt.fillStyle = color;
+
+	this.ctxt.beginPath();
+
+	this.ctxt.moveTo(points[0].x, points[0].y);
+
+	for (var i = 1; i < points.length; i += 1) {
+
+		this.ctxt.lineTo(points[i].x, points[i].y);
+
+	}
+
+	this.ctxt.lineTo(points[0].x, points[0].y);
+
+	this.ctxt.fill();
+	this.ctxt.stroke();
+	this.ctxt.closePath();
+	/*this.ctxt.lineWidth = 1;
+	 this.ctxt.strokeStyle = color;
+	 this.ctxt.stroke();*/
+};
+
 game.Canvas.prototype.clear = function() {
 
 // Store the current transformation matrix

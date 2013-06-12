@@ -1,3 +1,5 @@
+game.data = {
+};
 game.data.levels = [
 	{
 		id: 1,

@@ -2,8 +2,12 @@ game.userInput = {
 };
 game.userInput.display = null;
 game.userInput.selectedPusher = false;
-game.userInput.isAcceleration = true;
+game.userInput.isAcceleration = false;
 game.userInput.duration = null;
+game.userInput.moveRoute = {
+	x: 0,
+	y: 0
+};
 game.userInput.startPoint = {
 };
 
@@ -70,6 +74,7 @@ game.userInput.init = function() {
 
 			game.userInput.selectedPusher = game.userInput.isSelectPusher(lx, ly);
 			if (game.userInput.selectedPusher) {
+				game.drawInput.setShow(true);
 				game.userInput.startPoint = {
 					x: lx,
 					y: ly
@@ -99,24 +104,30 @@ game.userInput.init = function() {
 								ady = Math.abs(dy);
 
 				if (this.duration == null) {
+
 					this.duration = {
 						x: adx + 5,
 						y: ady + 5
 					};
+
 				} else if (this.duration.x < adx || this.duration.y < ady) {
+					game.userInput.moveRoute.y = 0;
+					game.userInput.moveRoute.x = 0;
 					if (adx < ady) {
+
 						if (dy > 0) {
-							game.level.pusher.moveDown();
+							game.userInput.moveRoute.y = -1;
 						} else if (dy < 0) {
-							game.level.pusher.moveUp();
+							game.userInput.moveRoute.y = 1;
 						}
-					} else if (Math.abs(dx) > Math.abs(dy)) {
+					} else if (adx > ady) {
 						if (dx < 0) {
-							game.level.pusher.moveLeft();
+							game.userInput.moveRoute.x = -1;
 						} else if (dx > 0) {
-							game.level.pusher.moveRight();
+							game.userInput.moveRoute.x = 1;
 						}
 					}
+
 					game.userInput.startPoint = {
 						x: lx,
 						y: ly
@@ -124,15 +135,37 @@ game.userInput.init = function() {
 
 				}
 
-				game.userInput.selectedPusher = game.userInput.isSelectPusher(lx, ly);
+				//game.userInput.selectedPusher = game.userInput.isSelectPusher(lx, ly);
 			}
 
 		});
 
 		this.display.up(function() {
 			if (game.userInput.selectedPusher) {
+
+				if (game.userInput.moveRoute.x < 0) {
+					game.level.pusher.moveLeft();
+				} else if (game.userInput.moveRoute.x > 0) {
+					game.level.pusher.moveRight();
+				} else if (game.userInput.moveRoute.y < 0) {
+					game.level.pusher.moveDown();
+				} else if (game.userInput.moveRoute.y > 0) {
+					game.level.pusher.moveUp();
+				}
+
+				game.userInput.moveRoute.x = 0;
+				game.userInput.moveRoute.y = 0;
 				game.userInput.selectedPusher = false;
+
 			}
+			game.drawInput.setShow(false);
+		});
+		this.display.out(function() {
+			if (game.userInput.selectedPusher) {
+				game.userInput.selectedPusher = false;
+
+			}
+			game.drawInput.setShow(false);
 		});
 
 	}
