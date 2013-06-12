@@ -70,7 +70,7 @@ game.setPreviousState = function() {
 game.loadLevel = function() {
 	try {
 		if (this.currentLevel < this.data.levels.length) {
-			this.level.init(game.data.levels[this.currentLevel]);
+			this.level.init(this.data.levels[this.currentLevel]);
 			this.setState("game");
 		} else {
 			this.setState("mainMenu");
