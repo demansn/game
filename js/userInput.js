@@ -56,7 +56,7 @@ game.userInput.init = function() {
 		var ly = parseInt(e.clientY || e.pageY || touch.pageY);
 
 		game.userInput.selectedPusher = game.userInput.isSelectPusher(lx, ly);
-		if (game.userInput.selectedPusher) {
+		if (game.userInput.selectedPusher && !game.level.pusher.isMove) {
 			game.drawInput.setShow(true);
 			game.userInput.startPoint = {
 				x: lx,

@@ -10,10 +10,12 @@ game.Pusher = function(x, y, z, w, h) {
 	this.stp = 50;
 	this.speed = 10;
 	this.isMove = false;
-	this.isMoveUp = false;
-	this.isMoveDown = false;
-	this.isMoveLeft = false;
-	this.isMoveRight = false;
+
+	this.isNotMoveUp = false;
+	this.isNotMoveDown = false;
+	this.isNotMoveLeft = false;
+	this.isNotMoveRight = false;
+
 	this.oldStepTime = 0;
 	this.time = 0;
 	this.counter = 0;
@@ -21,6 +23,35 @@ game.Pusher = function(x, y, z, w, h) {
 		x: 0,
 		y: 0
 	};
+
+	this.checkMovement = function() {
+		var blocks = game.level.blocks,
+						bl;
+
+		this.isNotMoveUp = false;
+		this.isNotMoveDown = false;
+		this.isNotMoveLeft = false;
+		this.isNotMoveRight = false;
+
+		for (var i = 0; i < blocks.length; i += 1) {
+			bl = blocks[i];
+			if (bl.type == 0) {
+				if (this.x - 1 < bl.x + bl.w && this.x + this.w > bl.x && this.y == bl.y) {
+					this.isNotMoveLeft = true;
+				}
+				if (this.x + this.w + 1 > bl.x && this.x < bl.x && this.y == bl.y) {
+					this.isNotMoveRight = true;
+				}
+				if (this.y - 2 < bl.y + bl.h && this.y + this.h > bl.y && this.x == bl.x) {
+					this.isNotMoveUp = true;
+				}
+				if (this.y + this.h + 1 > bl.y && this.y < bl.y && this.x == bl.x) {
+					this.isNotMoveDown = true;
+				}
+			}
+		}
+	};
+
 
 	this.draw = function() {
 		game.canvas.fillRectangle(this.x, this.y, this.w, this.h, this.color);
@@ -33,6 +64,7 @@ game.Pusher = function(x, y, z, w, h) {
 	};
 
 	this.step = function(stepTime) {
+		this.checkMovement();
 		if (this.isMove) {
 
 			var blocks = game.level.blocks,

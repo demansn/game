@@ -20,7 +20,7 @@ game.DrawInput = function() {
 	this.drawLeftArrow = function(isGreen) {
 		var points = [], point = {
 		},
-						color = isGreen ? "green" : "blue";
+						color = isGreen ? "red" : "green";
 		point.x = this.x - this.r - 2;
 		point.y = this.y - 15;
 		points.push(point);
@@ -45,7 +45,7 @@ game.DrawInput = function() {
 	this.drawRightArrow = function(isGreen) {
 		var points = [], point = {
 		},
-						color = isGreen ? "green" : "blue";
+						color = isGreen ? "red" : "green";
 		point.x = this.x + this.r + 2;
 		point.y = this.y - 15;
 		points.push(point);
@@ -70,7 +70,7 @@ game.DrawInput = function() {
 	this.drawDownArrow = function(isGreen) {
 		var points = [], point = {
 		},
-						color = isGreen ? "green" : "blue";
+						color = isGreen ? "red" : "green";
 		point.y = this.y + this.r + 2;
 		point.x = this.x - 15;
 		points.push(point);
@@ -95,7 +95,7 @@ game.DrawInput = function() {
 	this.drawUpArrow = function(isGreen) {
 		var points = [], point = {
 		},
-						color = isGreen ? "green" : "blue";
+						color = isGreen ? "red" : "green";
 		point.y = this.y - this.r - 2;
 		point.x = this.x - 15;
 		points.push(point);
@@ -120,11 +120,22 @@ game.DrawInput = function() {
 	this.draw = function() {
 		if (this.isShow) {
 			game.canvas.fillCircle(this.x, this.y, this.r, this.color);
+			var pusher = game.level.pusher;
+			if (!pusher.isNotMoveLeft) {
+				this.drawLeftArrow(game.userInput.moveRoute.x < 0);
+			}
 
-			this.drawLeftArrow(game.userInput.moveRoute.x < 0);
-			this.drawRightArrow(game.userInput.moveRoute.x > 0);
-			this.drawDownArrow(game.userInput.moveRoute.y < 0);
-			this.drawUpArrow(game.userInput.moveRoute.y > 0);
+			if (!pusher.isNotMoveRight) {
+				this.drawRightArrow(game.userInput.moveRoute.x > 0);
+			}
+
+			if (!pusher.isNotMoveDown) {
+				this.drawDownArrow(game.userInput.moveRoute.y < 0);
+			}
+
+			if (!pusher.isNotMoveUp) {
+				this.drawUpArrow(game.userInput.moveRoute.y > 0);
+			}
 		}
 	};
 
