@@ -1,7 +1,7 @@
 function DOMLoad() {
 	document.addEventListener('touchmove', preventDefaultScroll, false);
 	document.addEventListener("deviceready", onDeviceReady, false);
-	game.init();
+//	game.init();
 
 }
 
@@ -48,7 +48,10 @@ function getOffsetSum(elem) {
 		elem = elem.offsetParent;
 	}
 
-	return {top: top, left: left};
+	return {
+		top: top,
+		left: left
+	};
 }
 
 function getOffsetRect(elem) {
@@ -71,6 +74,9 @@ function getOffsetRect(elem) {
 	var top = box.top + scrollTop - clientTop;
 	var left = box.left + scrollLeft - clientLeft;
 
-	return {top: Math.round(top), left: Math.round(left)};
+	return {
+		top: Math.round(top),
+		left: Math.round(left)
+	};
 }
 
