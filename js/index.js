@@ -1,7 +1,7 @@
 function DOMLoad() {
 	document.addEventListener('touchmove', preventDefaultScroll, false);
 	document.addEventListener("deviceready", onDeviceReady, false);
-	game.init();
+//	game.init();
 
 }
 
