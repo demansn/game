@@ -77,7 +77,7 @@ game.loadLevel = function() {
 						this.setState("mainMenu");
 				}
 		} catch (e) {
-				alert("error loadLevel: " + JSON.stringify(e) + " " + e.message + " " + JSON.stringify(this.data));
+				alert("error loadLevel: " + JSON.stringify(e) + " " + e.message);
 		}
 };
 
